@@ -10,36 +10,12 @@
   <body>
     <main id="app">
       <aside class="menu">
-          <p class="menu-label">
-            General
-          </p>
           <ul class="menu-list">
-            <li><a>Dashboard</a></li>y
-          </ul>
-          <p class="menu-label">
-            Administration
-          </p>
-          <ul class="menu-list">
-            <li><a>Team Settings</a></li>
-            <li>
-              <a class="is-active">Manage Your Team</a>
-              <ul>
-                <li><a>Members</a></li>
-                <li><a>Plugins</a></li>
-              </ul>
-            </li>
-            <li><a>Invitations</a></li>
-          </ul>
-          <p class="menu-label">
-            Transactions
-          </p>
-          <ul class="menu-list">
-            <li><a>Payments</a></li>
+            <li v-for="item in itemList" @click="itemClicked(item)"><a>{{item}}</a></li>
           </ul>
         </aside>
       <script>
         // You can also require other files to run in this process
-
         require('./renderer.js')
       </script>
     </main>

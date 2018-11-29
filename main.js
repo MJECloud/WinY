@@ -7,10 +7,11 @@ const {app, BrowserWindow, globalShortcut} = electron
 let mainWindow
 
 function createWindow () {
+  
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 307, 
-    height: 583,
+    width: 307,
+    useContentSize: true,
     frame: false,
     alwaysOnTop: true,
     resizable: false
@@ -18,6 +19,10 @@ function createWindow () {
 
   mainWindow.webContents.openDevTools();
   const height = electron.screen.getPrimaryDisplay().workAreaSize.height
+  
+  mainWindow.webContents.executeJavaScript(`document.querySelector('body').scrollHeight`, (result) => {
+    mainWindow.setSize(307,result+8)
+  })
 
   mainWindow.on('show', () => {
     let y = height - mainWindow.getSize()[1];

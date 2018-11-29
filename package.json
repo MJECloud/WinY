@@ -28,6 +28,8 @@
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "dependencies": {
     "bulma": "^0.7.2",
+    "fs": "0.0.1-security",
+    "opn": "^5.4.0",
     "vue": "^2.5.17"
   }
 }
