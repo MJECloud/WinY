@@ -1,8 +1,10 @@
 const Vue = require('vue/dist/vue.js');
 const fs = require('fs')
 const opn = require('opn')
-const { remote } = require('electron')
+const { remote, globalShortcut } = require('electron')
 const currentWindow = remote.getCurrentWindow()
+const path = require('path')
+const BrowserWindow = remote.BrowserWindow
 
 const App = new Vue({
     el: '#app',
@@ -14,8 +16,12 @@ const App = new Vue({
     mounted() {
       let allItems = this.getItems();
       allItems.forEach(element => {
-        console.log(element)
         this.itemList.push(element)
+      })
+
+    globalShortcut.register('s', () => {
+        console.log("Settings")
+        this.openSettings();
       })
     },
   
@@ -38,8 +44,18 @@ const App = new Vue({
       },
       itemClicked(item) {
         const itemPath = "C:\\Temp\\WinY\\" + item + ".lnk"
-        opn(itemPath);
+        item === "Settings" ? this.openSettings() : opn(itemPath);
         currentWindow.hide();
+      },
+      openSettings() {
+        // open new Settings Window
+        console.log("Settings was clicked")
+
+        const modalPath = path.join('file://', __dirname, 'settings.html')
+        let win = new BrowserWindow({ width: 400, height: 200, frame: false, alwaysOnTop: true, resizable: false })
+        win.on('close', function () { win = null })
+        win.loadURL(modalPath)
+        win.show()
       }
     }
   

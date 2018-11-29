@@ -5,6 +5,7 @@ const {app, BrowserWindow, globalShortcut} = electron
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let settingsWindow
 
 function createWindow () {
   
@@ -42,7 +43,7 @@ function createWindow () {
   globalShortcut.register('Super+Y', () => {
     mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
   })
-  
+
   //mainWindow.isVisible ? mainWindow.hide() : mainWindow.show();
 
   // and load the index.html of the app.
@@ -58,6 +59,10 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+}
+
+function createSettingsWindow () {
+  console.log("Settings Menu was opened.")
 }
 
 // This method will be called when Electron has finished
