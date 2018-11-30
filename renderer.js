@@ -18,11 +18,6 @@ const App = new Vue({
       allItems.forEach(element => {
         this.itemList.push(element)
       })
-
-    globalShortcut.register('s', () => {
-        console.log("Settings")
-        this.openSettings();
-      })
     },
   
     computed: {

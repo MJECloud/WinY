@@ -8,7 +8,7 @@ let mainWindow
 let settingsWindow
 
 function createWindow () {
-  
+  process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 307,
@@ -59,10 +59,6 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
-}
-
-function createSettingsWindow () {
-  console.log("Settings Menu was opened.")
 }
 
 // This method will be called when Electron has finished
