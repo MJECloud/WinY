@@ -35,7 +35,7 @@ function createWindow () {
     }
 
     mainWindow.setPosition(x, y);
-
+    
   });
 
   mainWindow.hide();
