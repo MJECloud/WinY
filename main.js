@@ -1,14 +1,50 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const electron = require('electron')
+const {app, BrowserWindow, globalShortcut} = electron
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let settingsWindow
 
 function createWindow () {
+  process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
-  //mainWindow.hide();
+  mainWindow = new BrowserWindow({
+    width: 307,
+    useContentSize: true,
+    frame: false,
+    alwaysOnTop: true,
+    resizable: false
+  })
+
+  mainWindow.webContents.openDevTools();
+  const height = electron.screen.getPrimaryDisplay().workAreaSize.height
+  
+  mainWindow.webContents.executeJavaScript(`document.querySelector('body').scrollHeight`, (result) => {
+    mainWindow.setSize(307,result+8)
+  })
+
+  mainWindow.on('show', () => {
+    let y = height - mainWindow.getSize()[1];
+    let x = 1;
+    if (process.platform !== 'darwin') {
+      const size = mainWindow.getSize();
+      const windowWidth = size[0];
+      const windowHeight = size[1];
+    }
+
+    mainWindow.setPosition(x, y);
+    
+  });
+
+  mainWindow.hide();
+  
+  globalShortcut.register('Super+Y', () => {
+    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+  })
+
+  //mainWindow.isVisible ? mainWindow.hide() : mainWindow.show();
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -28,7 +64,13 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+//app.on('ready', createWindow)
+
 app.on('ready', createWindow)
+
+// app.on('mouseDown', () => {
+//   app.hide()
+// })
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
@@ -43,7 +85,7 @@ app.on('activate', function () {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) {
-    createWindow()
+    //createWindow()
   }
 })
 
