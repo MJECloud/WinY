@@ -1,12 +1,12 @@
 'use strict'
 
 const { app } = require('electron');
-
-const Window = require('./Window')
+const Window = require('./Window');
 
 function main(){
   let mainWindow = new Window({
-    file: 'index.html'
+    file: 'index.html',
+
   });
 }
 
